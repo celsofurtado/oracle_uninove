@@ -1,0 +1,69 @@
+INSTALAÇÃO ORACLE LINUX
+
+PASSO 01
+Criar um disco com 100GB e particionar da seguinte forma:
+
+/	3000
+/boot 	5000
+/usr 	10000
+/home 	5000
+/var	10000
+/tmp	4000
+/opt	15000
+swap	8000
+/u01	12000
+/disk1	15000
+/disk2	15000
+
+PASSO 02
+Verificar se o usuário está disponível:
+# getent passwd oracle
+
+Verificar se o grupo está disponível:
+# getent group oinstall
+
+ 
+PASSO 03
+Mudar dono das partições u01, disk1, disk2 e opt
+#chown -R oracle:oinstall /u01 e outros
+
+PASSO 04
+mudar permissão da pasta u01
+# chmod -R 751 /u01
+
+definir senha do usuário Oracle
+# passwd oracle
+
+editar profile
+# su - oracle
+$ nano .bash_profile
+ 
+
+Ativar o novo profile
+$ . .bash_profile
+
+
+PASSO 5
+Caso o VirtualBox não tenha mapeado o compartilhamento mapear da seguinte forma:
+$ mkdir /dados
+$ moutn -t vboxsf Oracle /dados
+
+PASSO 6
+Descompactar os arquivos do Oracle para /opt, da seguinte forma:
+$ cd /dados
+$ unzip p133...1.zip -d /opt
+$ unzip p133...2.zip -d /opt
+
+PASSO 7
+Instalar Oracle Database
+$ cd /opt/database
+
+Abra outro terminal como usuário “root” e executar
+# xhost +
+
+De volta ao terminal como usuário “oracle”
+$ sh rinstaller
+
+******** Seguir o assistente de instalação 
+
+	
